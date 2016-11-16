@@ -4,15 +4,15 @@
 #include <signal.h>
 #include <unistd.h>
 
-static void sighandler( int sig ){
-  if (sig == SIGINT){
+static void sighandler( int signo ){
+  if (signo == SIGINT){
     int f = open("sigfile.txt", O_CREAT|O_WRONLY|O_APPEND, 0644);
     char txt[] = "exited process\n";
     write(f, txt, sizeof(txt));
     close(f);
-    exit(1);
+    exit(0);
   }
-  else if (sig == SIGUSR1){
+  else if (signo == SIGUSR1){
     printf("parental P-I-D appears to be: %d\n", getppid());
   }
 }
